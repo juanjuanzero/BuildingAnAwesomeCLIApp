@@ -73,12 +73,32 @@ a count and a string.`,
 
 Here i've added some comments. The root command like the entry point for the application. Here we create a few commands to our CLI application. The `print` and `echo` commands are top-level commands, whereas `times` is a sub-command of `echo`. We've also introduced flags to the `times` command to modify its behavior.
 
-# What am i going to build?
+As an example if you build the application using `go build`, you can execute commands with the application. Here is an example:
+
+```
+$ ./BuildingAnAwesomeCliApp echo times "hello" -t 5
+//Output:
+//Echo: hello
+//Echo: hello
+//Echo: hello
+//Echo: hello
+//Echo: hello
+//Echo: hello
+```
+
+Notice how we have the `echo times` part. This is because the `times` command is a sub-command of the `echo` command. We also pass in the `-t` flag with an int value to tell how many times to repeat the value.
+
+# What am I going to build?
 
 That is the question, we'll try to build a to-do list application with a CLI. Here is the functionality that we can expect from the app:
 
 - Add tasks
+- List the tasks
 - Remove tasks
 - Mark as task as done
 - Add a priority to a task
 - Update a task's details, priority and/or due date
+
+# Getting Started
+
+So first well go ahead and clean up the main.go file and create a struct that describes our task. Our first priority would just be to add a task and list it out to the console.
