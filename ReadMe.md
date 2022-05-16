@@ -101,4 +101,49 @@ That is the question, we'll try to build a to-do list application with a CLI. He
 
 # Getting Started
 
-So first well go ahead and clean up the main.go file and create a struct that describes our task. Our first priority would just be to add a task and list it out to the console.
+So first well go ahead and clean up the main.go file and create a struct that describes our task. Our first priority would just be to add a task and list it out to the console. But before we do that we'll actually rearrange our file. You see the [library's user guide](https://github.com/spf13/cobra/blob/master/user_guide.md) suggests a specific structure. So we'll just follow that for now.
+
+We'll create a godoit directory and move our main.go file there. In the src directory we'll create a cmd directory. This is where we will place all of our commands for the cli.
+
+Now we will create root.go, which will be the entry point for our application. Here is what root.go looks like
+
+```Go
+package cmd
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/spf13/cobra"
+)
+
+var rootCmd = &cobra.Command{
+	Use:   "godoit",
+	Short: "this is my first cli-app so please be gentle",
+	Long:  "a todo list application build for the love of learning",
+}
+
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+```
+
+Next we are going to clean up our main.go file. Here is what it looks like now.
+
+```Go
+package main
+
+import (
+	"github.com/juanjuanzero/BuildingAnAwesomeCliApp/godoit/cmd"
+)
+
+func main() {
+	cmd.Execute()
+}
+```
+
+Since this will function as a todo list application we'll need a place to keep our to-dos somewhere. For now we'll just read from and write to a json file.
